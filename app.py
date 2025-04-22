@@ -14,12 +14,45 @@ def init_db():
     conn = sqlite3.connect(DB)
     cursor = conn.cursor()
     cursor.executescript("""
-    CREATE TABLE IF NOT EXISTS admins (username TEXT, password TEXT);
-    CREATE TABLE IF NOT EXISTS students (id TEXT PRIMARY KEY, name TEXT, age INTEGER, year_level INTEGER, section TEXT, course TEXT);
-    CREATE TABLE IF NOT EXISTS courses (course TEXT PRIMARY KEY, sections TEXT);
-    CREATE TABLE IF NOT EXISTS subjects (subject TEXT, course TEXT, section TEXT, year INTEGER);
-    CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, name TEXT, age INTEGER, role TEXT, username TEXT, password TEXT, course TEXT, section TEXT, year INTEGER, subjects TEXT);
-    CREATE TABLE IF NOT EXISTS grades (student_id TEXT, subject TEXT, grade REAL);
+    CREATE TABLE IF NOT EXISTS admins (
+        username TEXT PRIMARY KEY, 
+        password TEXT
+    );
+    CREATE TABLE IF NOT EXISTS students (
+        id TEXT PRIMARY KEY, 
+        name TEXT, 
+        age INTEGER, 
+        year_level INTEGER, 
+        section TEXT, 
+        course TEXT
+    );
+    CREATE TABLE IF NOT EXISTS courses (
+        course TEXT PRIMARY KEY, 
+        sections TEXT
+    );
+    CREATE TABLE IF NOT EXISTS subjects (
+        subject TEXT, 
+        course TEXT, 
+        section TEXT, 
+        year INTEGER
+    );
+    CREATE TABLE IF NOT EXISTS users (
+        id TEXT PRIMARY KEY, 
+        name TEXT, 
+        age INTEGER, 
+        role TEXT, 
+        username TEXT, 
+        password TEXT, 
+        course TEXT, 
+        section TEXT, 
+        year INTEGER, 
+        subjects TEXT
+    );
+    CREATE TABLE IF NOT EXISTS grades (
+        student_id TEXT, 
+        subject TEXT, 
+        grade REAL
+    );
     """)
     cursor.execute("INSERT OR IGNORE INTO admins VALUES (?, ?)", ("admin", "password123"))
     conn.commit()
@@ -27,7 +60,7 @@ def init_db():
 
 init_db()
 
-# Utility function to get DB connection
+# Utility function
 def get_db():
     return sqlite3.connect(DB)
 
